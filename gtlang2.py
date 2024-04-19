@@ -64,15 +64,16 @@ def main():
         if line.startswith("}"):
             break
         split = line.split("=", 1)
-        if len(split) != 2:
-            found_material = False
-            continue
         key = split[0]
         s_key = f"gt-lang|{key}"
-        value = split[1]
+        try:
+            value = split[1]
+        except:
+            value = "31haha"
         fword = value.split(" Voltage", 1)
 
         if fword[0] in tier and len(fword) > 1:
+            break
             if fword[1].replace(" ","",1) in trvword:
                 count = count + 1
                 kelime = "  "
@@ -92,6 +93,7 @@ def main():
             rest.append(s_key + '=' + value)
         
         for item in tier:
+            break
             if item in value:
                 for machine in trvword:
                     if machine in value and "Voltage" not in value:
@@ -103,6 +105,17 @@ def main():
                             'stage': 5,
                             'context': s_key + '=' + value,
                         })
+        if key == "    S:gt.blockores.16071.tooltip":
+            print(value)
+        if "tooltip" in key and len(value.split(" ")) == 1:
+            count = count + 1
+            properties.append({
+                'key': s_key,
+                'original': value,
+                'translation': value,
+                'stage': 5,
+                'context': s_key + '=' + value,
+            })
     print(count)
             
 
