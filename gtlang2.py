@@ -96,12 +96,12 @@ def main():
             break
             if item in value:
                 for machine in trvword:
-                    if machine in value and "Voltage" not in value:
+                    if machine in value and "Voltage" not in value and item + " " + machine == value:
                         count = count + 1
                         properties.append({
                             'key': s_key,
                             'original': value,
-                            'translation': item + " " +machine,
+                            'translation': item + " " + machine,
                             'stage': 5,
                             'context': s_key + '=' + value,
                         })
