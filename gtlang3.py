@@ -40,24 +40,13 @@ Machine = {
     'Dynamo Hatch' :'Dinamo Kapağı',
 }
 
-def is_1d(item):
-    return not isinstance(item, list) or len(item) == 0
-
 def main():
     with open('GregTech.lang', 'r', encoding="utf-8") as f:
         lines = f.read().splitlines()
     properties = []
     rest = []
-    in_languagefile_category = True
-    found_material = False
     count = 0
     for line in lines:
-        if not in_languagefile_category:
-            if line.startswith("languagefile {"):
-                in_languagefile_category = True
-            continue
-
-        # in_languagefile_category == True
         if line.startswith("}"):
             break
         split = line.split("=", 1)
@@ -66,7 +55,7 @@ def main():
         try:
             value = split[1]
         except:
-            value = "31haha"
+            value = ":("
         fword = value.split(" Voltage", 1)
         
         for item in tier:
@@ -85,7 +74,6 @@ def main():
                                 })
     print(count)
             
-
     with open('gtlang.txt', mode="wt", encoding="utf-8") as f:
         for line in properties:
             f.write(line['context'] + '\n')
